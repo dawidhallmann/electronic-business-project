@@ -4,13 +4,16 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
+# driver = webdriver.Chrome(ChromeDriverManager().install())
+
+driver = webdriver.Chrome(executable_path="chromedriver")
 
 save_to = 'data/products.json'
 
 categories = []
 categories_initial = [
-    "https://www.morele.net/kategoria/monitory-523/",
+    'https://www.morele.net/kategoria/laptopy-31/'
+    # "https://www.morele.net/kategoria/monitory-523/",
     # 'https://www.morele.net/kategoria/akcesoria-komputerowe-674/',
     # 'https://www.morele.net/kategoria/gniazda-blatowe-12199/',
     # 'https://www.morele.net/kategoria/przedluzacze-10139/',
@@ -95,6 +98,47 @@ for pd in products:
 
         pd['propertys'][name] = value
         i = i + 1
+
+    variants = driver.find_elements(
+        "xpath", '//div[@class="variants-items"]/div[@class="variant variant-buttons"]')
+        
+    pd['variants'] = {}
+
+    i = 1
+    for variants_item in variants:
+        name = variants_item.find_element(
+            "xpath", '(//div[@class="variants-items"]/div[@class="variant variant-buttons"]/div[@class="variant-f_head"])['+str(i)+']').text
+        
+        items = variants_item.find_elements(
+            "xpath", '(//div[@class="variants-items"]/div[@class="variant variant-buttons"]/div/ul)['+str(i)+']/li')
+        
+        pd['variants'][name] = []
+        
+        # print('Znaleziono: ' + str(len(items)))
+        
+        i2 = 1
+        for item in items: 
+            x = '((//div[@class="variants-items"]/div[@class="variant variant-buttons"]/div/ul)['+str(i)+']/li)['+str(i2)+']'
+            v = item.find_element(
+                "xpath", x)
+            
+            name2 = v.text #v.get_attribute('data-dropdown-label')
+            price = v.get_attribute('data-price-brutto')
+            image = v.get_attribute('data-product-image')
+            
+            nv = {
+                'name': name2,
+                'price_brutto': price,
+                'image': image,
+            }
+            
+            # print(nv)
+            
+            pd['variants'][name].append(nv) 
+            i2 = i2 + 1
+            
+        i = i + 1
+    
 
     pd['category'] = category
     pd['image_high_quality_link'] = image_high_quality_link
