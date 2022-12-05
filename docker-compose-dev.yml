@@ -42,9 +42,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-    - ./src/:/var/www/html:rw
-    # - ./src/my_teme:/var/www/html/themes/my_theme
-    # - ./override:/var/www/html/override
+    - ./src/presta-vol/:/var/www/html:rw
 
   db:
     image: mysql:5.7
@@ -55,7 +53,7 @@ services:
       - MYSQL_USER=prestashop
       - MYSQL_PASSWORD=prestashop
     volumes:
-      - ./mysql-data/:/var/lib/mysql
+      - ./src/mysql-vol/:/var/lib/mysql
     networks:
       - prestashop-net
 
