@@ -25,6 +25,7 @@ services:
       - PS_INSTALL_AUTO=0
       - PS_DOMAIN=localhost:8080
       - PS_FOLDER_ADMIN=admin
+      - PS_FOLDER_INSTALL=install
       - ADMIN_MAIL=demo@prestashop.com
       - ADMIN_PASSWD=prestashop_demo
     links:
@@ -41,7 +42,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-    - ./src/:/var/www/html:rw
+    - ./src/presta-vol/:/var/www/html:rw
 
   db:
     image: mysql:5.7
@@ -51,6 +52,8 @@ services:
       - MYSQL_DATABASE=prestashop
       - MYSQL_USER=prestashop
       - MYSQL_PASSWORD=prestashop
+    volumes:
+      - ./src/mysql-vol/:/var/lib/mysql
     networks:
       - prestashop-net
 

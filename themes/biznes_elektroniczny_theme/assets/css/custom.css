@@ -1,0 +1,116 @@
+/*
+ * Custom code goes here.
+ * A template should always ship with an empty custom.css
+ */
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
+
+ /* Variables */
+:root {
+--bg-primary: #dedede;
+--bg-secondary: #ffffff;
+
+--accent-primary: #FF513C;
+--accent-secondary: #ffb300;
+
+--radius-m: 10px;
+}
+#header, #header .header-top {
+  background-color: var(--bg-primary);
+}
+#header .header-top a,  #header .header-top a[data-depth="0"]{
+  color: var(--accent-primary)
+}
+.sub-menu {
+  background-color: var(--bg-primary);
+}
+#header .header-nav {
+  border-bottom: 0px solid var(--accent-primary);
+}
+img.logo {
+  height: 20px;
+}
+h1, h2, h3, h4, h5, h6, span, p, body {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Headings */
+h2.products-section-title {
+  font-size: 34px;
+  font-weight: 600 !important;
+  color: var(--accent-primary) !important;
+}
+
+.thumbnail-container {
+  border-radius: var(--radius-m);
+  border: 3px solid var(--accent-primary);
+  overflow: hidden;
+}
+
+.product-miniature .thumbnail-container {
+  background: var(--bg-primary);
+}
+.product-miniature .thumbnail-container:hover {
+  background: var(--bg-secondary);
+}
+.product-flags li.product-flag {
+  background: var(--accent-primary) !important;
+}
+.carousel .carousel-control .icon-next i, .carousel .carousel-control .icon-prev i {
+  color: var(--accent-primary);
+}
+.carousel-inner {
+  border-radius: var(--radius-m);
+  height: auto !important;
+}
+.carousel .caption {
+  color: var(--accent-primary) !important;
+}
+.footer-container .h3, .footer-container .h4 {
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  color: black !important;
+}
+.header-top #search_widget input {
+  border: 1px solid var(--accent-primary);
+}
+#search_widget form i.clear {
+  color: var(--accent-primary) !important;
+}
+#header .header-nav .cart-preview {
+  background: grey !important;
+}
+.btn-primary {
+  background-color: var(--accent-primary) !important;
+}
+.product-price {
+  color: var(--accent-primary) !important;
+}
+.footer > a {
+}
+#contact-infos > a {
+  color: var(--accent-primary) !important;
+}
+#footer > div.footer-container > div > div:nth-child(3) > div > p > a {
+  color: var(--accent-primary) !important;
+}
+#block_myaccount_infos, .block-contact  {
+  display: none;
+}
+.tabs .nav-tabs .nav-link.active, .tabs .nav-tabs .nav-link:hover {
+  color: var(--accent-primary) !important;
+}
+.tabs .nav-tabs .nav-link.active, .tabs .nav-tabs .nav-link:hover {
+  border-bottom: var(--accent-primary) 3px solid;
+}
+.btn {
+  border-radius: 8px !important;
+  transition: all 200ms ease-in;
+}
+.btn-comment {
+  background-color: var(--accent-secondary);
+}
+.btn-comment:hover {
+  background-color: var(--accent-primary);
+}
