@@ -20,3 +20,6 @@ Admin password: `EtiPg2022`
 
 ## Store route
 Url: `http://localhost:8080/admin`
+
+## Creating dump
+Please just compress `./src` folder without removing any files.
