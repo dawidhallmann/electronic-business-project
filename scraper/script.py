@@ -6,7 +6,10 @@ from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
 
-categories = [
+save_to = 'data/products.json'
+
+categories = []
+categories_initial = [
     "https://www.morele.net/kategoria/monitory-523/",
     # 'https://www.morele.net/kategoria/akcesoria-komputerowe-674/',
     # 'https://www.morele.net/kategoria/gniazda-blatowe-12199/',
@@ -15,11 +18,14 @@ categories = [
     # 'https://www.morele.net/kategoria/baterie-i-akumulatorki-311/',
     # 'https://www.morele.net/kategoria/ladowarki-do-akumulatorkow-312/',
     # 'https://www.morele.net/kategoria/rozgalezniki-12198/'
+    # 'https://www.morele.net/kategoria/glosniki-komputerowe-6/'
+    # 'https://www.morele.net/kategoria/czytniki-e-book-542/'
 ]
+# 600 
 
-# print('Dodawanie 2 karty w liście ')
-# for ct in categories:
-#     categories.append(ct + ',,,,,,,,0,,,,/2/') # card 2
+for ct in categories_initial:
+    categories.append(ct) 
+    categories.append(ct + ',,,,,,,,0,,,,/2/')
 
 products = []
 
@@ -33,7 +39,7 @@ for ct in categories:
     time.sleep(2)
     products_nodes = driver.find_elements(
         "xpath", '//h2[@class="cat-product-name__header"]/a')
-    # print(products_nodes)
+        
     for pt in products_nodes:
         link = pt.get_attribute("href")
 
@@ -42,7 +48,6 @@ for ct in categories:
         }
         products.append(obj)
 
-    # print(products)
 
 for pd in products:
     print('Wczytywanie ' + pd['link'])
@@ -90,16 +95,15 @@ for pd in products:
 
         pd['propertys'][name] = value
         i = i + 1
-        
-        print(name + ' ' + value)
 
     pd['category'] = category
-    # pd['producent'] = producent
     pd['image_high_quality_link'] = image_high_quality_link
 
-    with open('data/products.json', 'w') as f:
+    with open(save_to, 'w') as f:
         json.dump(products, f)
     
-print(products)
+# print(products)
+
+print('Zapisywanie pliku do ' + save_to)
 
 driver.close()
