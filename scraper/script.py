@@ -108,6 +108,8 @@ for pd in products:
     for variants_item in variants:
         name = variants_item.find_element(
             "xpath", '(//div[@class="variants-items"]/div[@class="variant variant-buttons"]/div[@class="variant-f_head"])['+str(i)+']').text
+            
+        name = name[:-1]
         
         items = variants_item.find_elements(
             "xpath", '(//div[@class="variants-items"]/div[@class="variant variant-buttons"]/div/ul)['+str(i)+']/li')
