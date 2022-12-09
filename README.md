@@ -23,3 +23,7 @@ Url: `http://localhost:8080/admin`
 
 ## Creating dump
 Please just compress `./src` folder without removing any files.
+
+## Gmail 
+Email: `bizneselektronicznyeti2022@gmail.com`
+Pass: `EtiPg2022`
