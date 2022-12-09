@@ -33,8 +33,9 @@ func main() {
 		categoriesSlice = append(categoriesSlice, product.Category)
 	}
 
-	writeCategories(categoriesSlice)
-	writeProducts(products)
+	categoriesMap := writeCategories(categoriesSlice)
+
+	writeProducts(products, categoriesMap)
 }
 
 func parseFile(f *os.File) (products []Product) {
@@ -50,9 +51,9 @@ func parseFile(f *os.File) (products []Product) {
 	return products
 }
 
-func writeCategories(categories []string) {
+func writeCategories(categories []string) map[string]int {
 	header := "Category ID;Active (0/1);Name *;Parent category;Root category (0/1);Description;Meta title;Meta keywords;Meta description;URL rewritten;Image URL\n"
-	destination := "categories.csv"
+	destination := "data/categories.csv"
 	categoryID := 3
 	categoriesMap := make(map[string]int)
 
@@ -68,17 +69,19 @@ func writeCategories(categories []string) {
 	for _, category := range categories {
 		if _, ok := categoriesMap[category]; !ok {
 			str := fmt.Sprintf("%v;1;%v;Strona główna;0;;;;;;\n", categoryID, category)
-			categoryID += 1
 			categoriesMap[category] = categoryID
+			categoryID += 1
 
 			outputFile.WriteString(str)
 		}
 	}
+
+	return categoriesMap
 }
 
-func writeProducts(products []Product) {
+func writeProducts(products []Product, categoriesMap map[string]int) {
 	header := "ID;Aktywny (0 lub 1);Nazwa*;Kategorie (x,y,z...);Cena zawiera podatek. (brutto);ID reguły podatku;W sprzedaży (0 lub 1);Ilość;Podsumowanie;Opis;Etykieta, gdy w magazynie;Pokaż cenę (0 = Nie, 1 = Tak);Adresy URL zdjęcia (x,y,z...);Usuń istniejące zdjęcia (0 = Nie, 1 = Tak);Cecha(Nazwa:Wartość:Pozycja:Indywidualne);Dostępne tylko online (0 = Nie, 1 = Tak);Stan;Konfigurowalny (0 = Nie, 1 = Tak);Można wgrywać pliki (0 = Nie, 1 = Tak);Pola tekstowe (0 = Nie, 1 = Tak);Wirtualny produkt (0 = No, 1 = Yes);Przepisany URL\n"
-	destination := "products.csv"
+	destination := "data/products.csv"
 	taxRuleID := 1
 
 	outputFile, err := os.Create(destination)
@@ -96,7 +99,7 @@ func writeProducts(products []Product) {
 		url := newUrl(name)
 		properies := newProperties(product.Properties)
 
-		outputFile.WriteString(fmt.Sprintf("%v;1;%v;%v;%v;%v;0;10;Podsumowanie;Opis;W magazynie;1;%v;1;%v;0;new;0;0;0;0;%v\n", id+50, name, product.Category, price, taxRuleID, product.ImageLink, properies, url))
+		outputFile.WriteString(fmt.Sprintf("%v;1;%v;%v;%v;%v;0;10;Podsumowanie;Opis;W magazynie;1;%v;1;%v;0;new;0;0;0;0;%v\n", id+50, name, categoriesMap[product.Category], price, taxRuleID, product.ImageLink, properies, url))
 	}
 }
 
