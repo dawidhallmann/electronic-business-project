@@ -24,6 +24,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+export const USER_EMAIL="jan-kowalski@gmail.com"
+export const USER_PASSWORD="Str0nkP@ss"
+
 Cypress.Commands.overwrite("visit", (originalFn, url, options) => {
     const { baseUrl } = Cypress.config();
     return originalFn(`${baseUrl}${url || ""}`, {
@@ -41,6 +44,13 @@ Cypress.Commands.add("typeCheck", (selector, value) => {
     cy.get(selector)
       .should("be.visible")
       .type(value)
+});
+
+Cypress.Commands.add("login", () => {
+    cy.clickCheck('.user-info')
+    cy.typeCheck('#field-email', USER_EMAIL)
+    cy.typeCheck('#field-password', USER_PASSWORD)
+    cy.clickCheck('#submit-login')
 });
   
 Cypress.on("uncaught:exception", (err, runnable) => {

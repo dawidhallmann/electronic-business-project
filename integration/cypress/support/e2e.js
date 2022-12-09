@@ -18,3 +18,6 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+export const USER_EMAIL="jan-kowalski@gmail.com"
+export const USER_PASSWORD="Str0nkP@ss"
