@@ -30,6 +30,12 @@ Cypress.Commands.overwrite("visit", (originalFn, url, options) => {
       ...(options || {}),
     });
 });
+
+Cypress.Commands.add("clickCheck", (selector) => {
+    cy.get(selector)
+      .should("be.visible")
+      .click()
+});
   
 Cypress.on("uncaught:exception", (err, runnable) => {
     return false;

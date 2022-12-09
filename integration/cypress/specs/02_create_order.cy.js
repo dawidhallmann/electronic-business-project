@@ -1,5 +1,9 @@
-describe('empty spec', () => {
-  it('passes', () => {
-    cy.visit('https://example.cypress.io')
+describe('Create order', () => {
+  before(() => {
+    cy.visit("")
+  });
+  
+  it('', () => {
+    
   })
 })
