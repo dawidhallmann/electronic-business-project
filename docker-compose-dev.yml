@@ -23,7 +23,7 @@ services:
       - PS_DEV_MODE=1
       - PS_DEMO_MODE=0
       - PS_INSTALL_AUTO=0
-      - PS_DOMAIN=localhost:8080
+      - PS_DOMAIN=localhost:8082
       - PS_FOLDER_ADMIN=admin
       - PS_FOLDER_INSTALL=install
       - ADMIN_MAIL=demo@prestashop.com
@@ -36,11 +36,6 @@ services:
       - 8080:80
     networks:
       - prestashop-net
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
     volumes:
     - ./src/presta-vol/:/var/www/html:rw
 
@@ -57,6 +52,25 @@ services:
       - ./src/mysql-vol/:/var/lib/mysql
     networks:
       - prestashop-net
+
+  nginx:
+    container_name: nginx
+    restart: unless-stopped
+    build:
+        context: ./nginx/
+        dockerfile: Dockerfile
+    ports:
+        - 443:443
+        - 8082:8082
+        - 80:80
+    volumes:
+      - ./certs-volume/ca-cert.crt:/etc/nginx/ssl/ca-cert.crt
+      - ./certs-volume/ca-key.key:/etc/nginx/ssl/ca-key.key
+    networks:
+      - prestashop-net
+    depends_on:
+      - prestashop
+
 
 networks:
   prestashop-net:
