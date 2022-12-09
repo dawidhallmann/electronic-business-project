@@ -28,4 +28,11 @@ Please just compress `./src` folder without removing any files.
 Email: `bizneselektronicznyeti2022@gmail.com`
 Pass: `EtiPg2022`
 
+
+## Onet
+Email: `bizneselektronicznyeti2022@op.pl`
+Pass: `EtiPg2022`
+
+
+
 GA: `G-ZMBV84TDBW`
