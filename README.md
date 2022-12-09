@@ -32,7 +32,7 @@ Pass: `EtiPg2022`
 ## Onet
 Email: `bizneselektronicznyeti2022@op.pl`
 Pass: `EtiPg2022`
-
+SMTP: `smtp.poczta.onet.pl`
 
 
 GA: `G-ZMBV84TDBW`
