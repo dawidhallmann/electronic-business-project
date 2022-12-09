@@ -36,6 +36,12 @@ Cypress.Commands.add("clickCheck", (selector) => {
       .should("be.visible")
       .click()
 });
+
+Cypress.Commands.add("typeCheck", (selector, value) => {
+    cy.get(selector)
+      .should("be.visible")
+      .type(value)
+});
   
 Cypress.on("uncaught:exception", (err, runnable) => {
     return false;
