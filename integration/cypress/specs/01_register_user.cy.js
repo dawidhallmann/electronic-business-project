@@ -1,4 +1,4 @@
-import {USER_EMAIL, USER_PASSWORD} from "../support/e2e"
+import {USER_EMAIL, USER_PASSWORD} from "../support/commands"
 
 describe('Auth', () => {
   beforeEach(() => {
