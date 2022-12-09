@@ -1,5 +1,5 @@
 mysql-data/
-
-src/mysql-vol/
-src/presta-vol/
+src/
+_MACOSX/
 .DS_Store
+*.zip
