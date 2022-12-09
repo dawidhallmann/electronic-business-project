@@ -36,7 +36,9 @@ Cypress.Commands.overwrite("visit", (originalFn, url, options) => {
 
 Cypress.Commands.add("clickCheck", (selector) => {
     cy.get(selector)
-      .should("be.visible")
+      .should("exist")
+      .first()
+      .scrollIntoView()
       .click()
 });
 
@@ -46,12 +48,29 @@ Cypress.Commands.add("typeCheck", (selector, value) => {
       .type(value)
 });
 
+Cypress.Commands.add("addProduct", (selector, amount="1") => {
+    cy.clickCheck(selector)
+    cy.typeCheck('#quantity_wanted', "{selectAll}" + amount)
+    cy.clickCheck('.add > .btn')
+    cy.clickCheck('.cart-content-btn > .btn-secondary')
+});
+
 Cypress.Commands.add("login", () => {
     cy.clickCheck('.user-info')
     cy.typeCheck('#field-email', USER_EMAIL)
     cy.typeCheck('#field-password', USER_PASSWORD)
     cy.clickCheck('#submit-login')
 });
+
+Cypress.Commands.add("ifExists", (selector, successCallback) => {
+    cy.wait(500);
+    cy.document().then((doc) => {
+      const documentResult = doc.querySelectorAll(selector);
+      if (documentResult.length) {
+        successCallback();
+      }
+    });
+});  
   
 Cypress.on("uncaught:exception", (err, runnable) => {
     return false;
