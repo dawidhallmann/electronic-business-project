@@ -6,9 +6,15 @@ describe('Create order', () => {
 
   it('Order products', () => {
     // add products to backet
-    cy.addProduct('a[href*=533-]', "3")
-    cy.visit("")
-    cy.addProduct('a[href*=538-]')
+    [...Array(5).keys()].forEach(i => {
+      cy.clickCheck('#category-3 > .dropdown-item');
+      cy.addProduct(`.products .product:nth-child(${i+1})`, (i+1).toString())
+    });
+    [...Array(5).keys()].forEach(i => {
+      cy.clickCheck('#category-6 > .dropdown-item')
+      cy.addProduct(`.products .product:nth-child(${i+1})`, (i+1).toString())
+    });
+  
     cy.clickCheck('.blockcart')
 
     // remove second product from basket
@@ -36,6 +42,10 @@ describe('Create order', () => {
     cy.clickCheck('#payment-option-1-container')
     cy.get('.custom-checkbox input').click({force: true})
     cy.clickCheck('.ps-shown-by-js > .btn')
+
+    cy.get('#content-hook_order_confirmation > .card-block')
+      .should("be.visible")
+    cy.get('#order-items').should("be.visible")
   })
 
   it('Check order', () => {
