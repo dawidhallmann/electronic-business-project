@@ -1,5 +1,5 @@
 describe('Create order', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit("")
     cy.login()
   });
@@ -36,5 +36,14 @@ describe('Create order', () => {
     cy.clickCheck('#payment-option-1-container')
     cy.get('.custom-checkbox input').click({force: true})
     cy.clickCheck('.ps-shown-by-js > .btn')
+  })
+
+  it('Check order', () => {
+    cy.clickCheck('.account > .hidden-sm-down')
+    cy.clickCheck('#history-link > .link-item')
+    cy.clickCheck(':nth-child(1) > .order-actions > .view-order-details-link')
+
+    cy.get('#delivery-address > address')
+      .should("contain.text", "Jan Kowalski")
   })
 })
