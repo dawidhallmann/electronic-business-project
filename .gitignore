@@ -3,3 +3,6 @@ src/
 _MACOSX/
 .DS_Store
 *.zip
+
+integration/node_modules
+integration/package-lock.json
